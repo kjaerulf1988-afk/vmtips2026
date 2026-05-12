@@ -1,0 +1,433 @@
+[
+  {
+    "gruppe": "A",
+    "kampe": [
+      {
+        "dato": "11 JUN 21:00",
+        "hjemmehold": "Mexico",
+        "udehold": "Sydafrika"
+      },
+      {
+        "dato": "12 JUN 04:00",
+        "hjemmehold": "Sydkorea",
+        "udehold": "Tjekkiet"
+      },
+      {
+        "dato": "18 JUN 18:00",
+        "hjemmehold": "Tjekkiet",
+        "udehold": "Sydafrika"
+      },
+      {
+        "dato": "19 JUN 03:00",
+        "hjemmehold": "Mexico",
+        "udehold": "Sydkorea"
+      },
+      {
+        "dato": "25 JUN 03:00",
+        "hjemmehold": "Tjekkiet",
+        "udehold": "Mexico"
+      },
+      {
+        "dato": "25 JUN 03:00",
+        "hjemmehold": "Sydafrika",
+        "udehold": "Sydkorea"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "B",
+    "kampe": [
+      {
+        "dato": "12 JUN 21:00",
+        "hjemmehold": "Canada",
+        "udehold": "Bosnien-Hercegovina"
+      },
+      {
+        "dato": "13 JUN 21:00",
+        "hjemmehold": "Qatar",
+        "udehold": "Schweiz"
+      },
+      {
+        "dato": "18 JUN 21:00",
+        "hjemmehold": "Schweiz",
+        "udehold": "Bosnien-Hercegovina"
+      },
+      {
+        "dato": "19 JUN 00:00",
+        "hjemmehold": "Canada",
+        "udehold": "Qatar"
+      },
+      {
+        "dato": "24 JUN 21:00",
+        "hjemmehold": "Schweiz",
+        "udehold": "Canada"
+      },
+      {
+        "dato": "24 JUN 21:00",
+        "hjemmehold": "Bosnien-Hercegovina",
+        "udehold": "Qatar"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "C",
+    "kampe": [
+      {
+        "dato": "14 JUN 00:00",
+        "hjemmehold": "Brasilien",
+        "udehold": "Marokko"
+      },
+      {
+        "dato": "14 JUN 03:00",
+        "hjemmehold": "Haiti",
+        "udehold": "Skotland"
+      },
+      {
+        "dato": "20 JUN 00:00",
+        "hjemmehold": "Skotland",
+        "udehold": "Marokko"
+      },
+      {
+        "dato": "20 JUN 02:30",
+        "hjemmehold": "Brasilien",
+        "udehold": "Haiti"
+      },
+      {
+        "dato": "25 JUN 00:00",
+        "hjemmehold": "Skotland",
+        "udehold": "Brasilien"
+      },
+      {
+        "dato": "25 JUN 00:00",
+        "hjemmehold": "Marokko",
+        "udehold": "Haiti"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "D",
+    "kampe": [
+      {
+        "dato": "13 JUN 03:00",
+        "hjemmehold": "USA",
+        "udehold": "Paraguay"
+      },
+      {
+        "dato": "14 JUN 06:00",
+        "hjemmehold": "Australien",
+        "udehold": "Tyrkiet"
+      },
+      {
+        "dato": "19 JUN 21:00",
+        "hjemmehold": "USA",
+        "udehold": "Australien"
+      },
+      {
+        "dato": "20 JUN 05:00",
+        "hjemmehold": "Tyrkiet",
+        "udehold": "Paraguay"
+      },
+      {
+        "dato": "26 JUN 04:00",
+        "hjemmehold": "Tyrkiet",
+        "udehold": "USA"
+      },
+      {
+        "dato": "26 JUN 04:00",
+        "hjemmehold": "Paraguay",
+        "udehold": "Australien"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "E",
+    "kampe": [
+      {
+        "dato": "14 JUN 19:00",
+        "hjemmehold": "Tyskland",
+        "udehold": "Curacao"
+      },
+      {
+        "dato": "15 JUN 01:00",
+        "hjemmehold": "Elfenbenskysten",
+        "udehold": "Ecuador"
+      },
+      {
+        "dato": "20 JUN 22:00",
+        "hjemmehold": "Tyskland",
+        "udehold": "Elfenbenskysten"
+      },
+      {
+        "dato": "21 JUN 02:00",
+        "hjemmehold": "Ecuador",
+        "udehold": "Curacao"
+      },
+      {
+        "dato": "25 JUN 22:00",
+        "hjemmehold": "Ecuador",
+        "udehold": "Tyskland"
+      },
+      {
+        "dato": "25 JUN 22:00",
+        "hjemmehold": "Curacao",
+        "udehold": "Elfenbenskysten"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "F",
+    "kampe": [
+      {
+        "dato": "14 JUN 22:00",
+        "hjemmehold": "Holland",
+        "udehold": "Japan"
+      },
+      {
+        "dato": "15 JUN 04:00",
+        "hjemmehold": "Sverige",
+        "udehold": "Tunesien"
+      },
+      {
+        "dato": "20 JUN 19:00",
+        "hjemmehold": "Holland",
+        "udehold": "Sverige"
+      },
+      {
+        "dato": "21 JUN 06:00",
+        "hjemmehold": "Tunesien",
+        "udehold": "Japan"
+      },
+      {
+        "dato": "26 JUN 01:00",
+        "hjemmehold": "Tunesien",
+        "udehold": "Holland"
+      },
+      {
+        "dato": "26 JUN 01:00",
+        "hjemmehold": "Japan",
+        "udehold": "Sverige"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "G",
+    "kampe": [
+      {
+        "dato": "15 JUN 21:00",
+        "hjemmehold": "Belgien",
+        "udehold": "Egypten"
+      },
+      {
+        "dato": "16 JUN 03:00",
+        "hjemmehold": "Iran",
+        "udehold": "New Zealand"
+      },
+      {
+        "dato": "21 JUN 21:00",
+        "hjemmehold": "Belgien",
+        "udehold": "Iran"
+      },
+      {
+        "dato": "22 JUN 03:00",
+        "hjemmehold": "New Zealand",
+        "udehold": "Egypten"
+      },
+      {
+        "dato": "27 JUN 05:00",
+        "hjemmehold": "New Zealand",
+        "udehold": "Belgien"
+      },
+      {
+        "dato": "27 JUN 05:00",
+        "hjemmehold": "Egypten",
+        "udehold": "Iran"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "H",
+    "kampe": [
+      {
+        "dato": "15 JUN 18:00",
+        "hjemmehold": "Spanien",
+        "udehold": "Kap Verde"
+      },
+      {
+        "dato": "16 JUN 00:00",
+        "hjemmehold": "Saudi Arabien",
+        "udehold": "Uruguay"
+      },
+      {
+        "dato": "21 JUN 18:00",
+        "hjemmehold": "Spanien",
+        "udehold": "Saudi Arabien"
+      },
+      {
+        "dato": "22 JUN 00:00",
+        "hjemmehold": "Uruguay",
+        "udehold": "Kap Verde"
+      },
+      {
+        "dato": "27 JUN 02:00",
+        "hjemmehold": "Uruguay",
+        "udehold": "Spanien"
+      },
+      {
+        "dato": "27 JUN 02:00",
+        "hjemmehold": "Kap Verde",
+        "udehold": "Saudi Arabien"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "I",
+    "kampe": [
+      {
+        "dato": "16 JUN 21:00",
+        "hjemmehold": "Frankrig",
+        "udehold": "Senegal"
+      },
+      {
+        "dato": "17 JUN 00:00",
+        "hjemmehold": "Irak",
+        "udehold": "Norge"
+      },
+      {
+        "dato": "22 JUN 23:00",
+        "hjemmehold": "Frankrig",
+        "udehold": "Irak"
+      },
+      {
+        "dato": "23 JUN 02:00",
+        "hjemmehold": "Norge",
+        "udehold": "Senegal"
+      },
+      {
+        "dato": "26 JUN 21:00",
+        "hjemmehold": "Norge",
+        "udehold": "Frankrig"
+      },
+      {
+        "dato": "26 JUN 21:00",
+        "hjemmehold": "Senegal",
+        "udehold": "Irak"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "J",
+    "kampe": [
+      {
+        "dato": "17 JUN 03:00",
+        "hjemmehold": "Argentina",
+        "udehold": "Algeriet"
+      },
+      {
+        "dato": "17 JUN 06:00",
+        "hjemmehold": "Østrig",
+        "udehold": "Jordan"
+      },
+      {
+        "dato": "22 JUN 19:00",
+        "hjemmehold": "Argentina",
+        "udehold": "Østrig"
+      },
+      {
+        "dato": "23 JUN 05:00",
+        "hjemmehold": "Jordan",
+        "udehold": "Algeriet"
+      },
+      {
+        "dato": "28 JUN 04:00",
+        "hjemmehold": "Jordan",
+        "udehold": "Argentina"
+      },
+      {
+        "dato": "28 JUN 04:00",
+        "hjemmehold": "Algeriet",
+        "udehold": "Østrig"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "K",
+    "kampe": [
+      {
+        "dato": "17 JUN 19:00",
+        "hjemmehold": "Portugal",
+        "udehold": "DR Congo"
+      },
+      {
+        "dato": "18 JUN 04:00",
+        "hjemmehold": "Usbekistan",
+        "udehold": "Colombia"
+      },
+      {
+        "dato": "23 JUN 19:00",
+        "hjemmehold": "Portugal",
+        "udehold": "Usbekistan"
+      },
+      {
+        "dato": "24 JUN 04:00",
+        "hjemmehold": "Colombia",
+        "udehold": "DR Congo"
+      },
+      {
+        "dato": "28 JUN 01:30",
+        "hjemmehold": "Colombia",
+        "udehold": "Portugal"
+      },
+      {
+        "dato": "28 JUN 01:30",
+        "hjemmehold": "DR Congo",
+        "udehold": "Usbekistan"
+      }
+    ]
+  },
+
+  {
+    "gruppe": "L",
+    "kampe": [
+      {
+        "dato": "17 JUN 22:00",
+        "hjemmehold": "England",
+        "udehold": "Kroatien"
+      },
+      {
+        "dato": "18 JUN 01:00",
+        "hjemmehold": "Ghana",
+        "udehold": "Panama"
+      },
+      {
+        "dato": "23 JUN 22:00",
+        "hjemmehold": "England",
+        "udehold": "Ghana"
+      },
+      {
+        "dato": "24 JUN 01:00",
+        "hjemmehold": "Panama",
+        "udehold": "Kroatien"
+      },
+      {
+        "dato": "27 JUN 23:00",
+        "hjemmehold": "Panama",
+        "udehold": "England"
+      },
+      {
+        "dato": "27 JUN 23:00",
+        "hjemmehold": "Kroatien",
+        "udehold": "Ghana"
+      }
+    ]
+  }
+]

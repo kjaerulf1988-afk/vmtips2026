@@ -1,0 +1,533 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #14001f;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* LOGIN */
+
+.login-container {
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+}
+
+.login-box {
+  background: linear-gradient(
+    180deg,
+    #8f00ff,
+    #4a0072
+  );
+
+  width: 100%;
+
+  max-width: 420px;
+
+  padding: 40px;
+
+  border-radius: 28px;
+
+  text-align: center;
+
+  box-shadow: 0 0 30px
+    rgba(0, 0, 0, 0.4);
+}
+
+.login-box h1 {
+  font-size: 38px;
+
+  margin-bottom: 30px;
+}
+
+.login-box input {
+  width: 100%;
+
+  padding: 16px;
+
+  border: none;
+
+  outline: none;
+
+  border-radius: 14px;
+
+  font-size: 18px;
+
+  margin-bottom: 15px;
+}
+
+.login-box button {
+  width: 100%;
+
+  padding: 16px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: #111;
+
+  color: white;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.fejl {
+  color: #ff5c5c;
+
+  margin-bottom: 15px;
+}
+
+/* TOPBAR */
+
+.topbar {
+  width: 100%;
+
+  background: linear-gradient(
+    90deg,
+    #6d00b3,
+    #a855f7
+  );
+
+  padding: 30px;
+
+  text-align: center;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 100;
+}
+
+.topbar h2 {
+  font-size: 34px;
+}
+
+.locked-status {
+  margin-top: 10px;
+
+  color: #00ff88;
+
+  font-weight: bold;
+
+  font-size: 18px;
+}
+
+/* KAMPE */
+
+.kampe-container {
+  width: 100%;
+
+  max-width: 1200px;
+
+  margin: 50px auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 35px;
+
+  padding: 20px;
+}
+
+.kamp-kort {
+  background: linear-gradient(
+    180deg,
+    #b000ff,
+    #6f00b5
+  );
+
+  border-radius: 40px;
+
+  padding: 60px 40px;
+
+  text-align: center;
+}
+
+.kamp-title {
+  font-size: 72px;
+
+  margin-bottom: 25px;
+
+  font-weight: 900;
+}
+
+.kamp-info {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 35px;
+
+  margin-bottom: 60px;
+
+  font-size: 28px;
+
+  font-weight: bold;
+}
+
+.gruppe {
+  color: gold;
+}
+
+.hold-linje {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 30px;
+
+  margin-bottom: 30px;
+}
+
+.holdnavn {
+  font-size: 56px;
+
+  font-weight: bold;
+}
+
+.vs {
+  font-size: 70px;
+
+  font-weight: 900;
+
+  margin: 20px 0;
+}
+
+/* SELECT */
+
+select {
+  width: 120px;
+
+  padding: 18px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: #111;
+
+  color: white;
+
+  font-size: 34px;
+
+  text-align: center;
+}
+
+/* ADMIN INPUT */
+
+.result-input {
+  width: 80px !important;
+
+  height: 80px !important;
+
+  min-width: 80px !important;
+
+  max-width: 80px !important;
+
+  flex: 0 0 auto;
+
+  border: none !important;
+
+  border-radius: 20px !important;
+
+  background: white !important;
+
+  color: black !important;
+
+  font-size: 38px !important;
+
+  font-weight: bold !important;
+
+  text-align: center !important;
+
+  outline: none !important;
+
+  padding: 0 !important;
+}
+
+/* GEM */
+
+.gem-wrapper {
+  position: fixed;
+
+  bottom: 30px;
+
+  right: 30px;
+
+  z-index: 999;
+}
+
+.gem-btn {
+  border: none;
+
+  width: 90px;
+
+  height: 90px;
+
+  border-radius: 50%;
+
+  background: #00d26a;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 25px
+    rgba(0, 0, 0, 0.4);
+
+  transition: 0.2s;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  padding: 10px;
+}
+
+.gem-btn:hover {
+  transform: scale(1.05);
+}
+
+.gem-btn.disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* LEADERBOARD */
+
+.leaderboard {
+  width: 100%;
+
+  max-width: 1000px;
+
+  margin: 0 auto 100px;
+
+  padding: 20px;
+}
+
+.leaderboard h1 {
+  text-align: center;
+
+  font-size: 56px;
+
+  margin-bottom: 40px;
+}
+
+.leaderboard-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  background: #1d1d1d;
+
+  padding: 25px 30px;
+
+  border-radius: 22px;
+
+  margin-bottom: 18px;
+
+  font-size: 28px;
+
+  font-weight: bold;
+}
+
+.gold {
+  background: linear-gradient(
+    90deg,
+    #ffd700,
+    #ffb700
+  );
+
+  color: black;
+}
+
+.silver {
+  background: linear-gradient(
+    90deg,
+    #d9d9d9,
+    #a8a8a8
+  );
+
+  color: black;
+}
+
+.bronze {
+  background: linear-gradient(
+    90deg,
+    #cd7f32,
+    #9b5a20
+  );
+}
+
+/* CONFIRM */
+
+.confirm-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.75);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+}
+
+.confirm-box {
+  background: #1a1a1a;
+
+  width: 90%;
+
+  max-width: 420px;
+
+  padding: 40px;
+
+  border-radius: 24px;
+
+  text-align: center;
+}
+
+.confirm-box h2 {
+  font-size: 34px;
+
+  margin-bottom: 15px;
+}
+
+.confirm-box p {
+  color: #ccc;
+
+  margin-bottom: 30px;
+}
+
+.confirm-buttons {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 15px;
+}
+
+.cancel-btn,
+.confirm-btn {
+  border: none;
+
+  padding: 14px 24px;
+
+  border-radius: 14px;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #555;
+
+  color: white;
+}
+
+.confirm-btn {
+  background: #8f00ff;
+
+  color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .kamp-title {
+    font-size: 34px;
+  }
+
+  .kamp-info {
+    flex-direction: column;
+
+    gap: 10px;
+
+    font-size: 20px;
+
+    margin-bottom: 40px;
+  }
+
+  .hold-linje {
+    flex-direction: column;
+  }
+
+  .holdnavn {
+    font-size: 32px;
+  }
+
+  .vs {
+    font-size: 48px;
+  }
+
+  select {
+    width: 100px;
+
+    font-size: 24px;
+  }
+
+  .leaderboard-row {
+    font-size: 20px;
+
+    padding: 18px;
+  }
+
+  .leaderboard h1 {
+    font-size: 38px;
+  }
+
+  .topbar h2 {
+    font-size: 26px;
+  }
+
+  .result-input {
+    width: 70px !important;
+
+    height: 70px !important;
+
+    font-size: 30px !important;
+  }
+}
