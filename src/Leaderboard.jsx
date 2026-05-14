@@ -176,7 +176,7 @@ export default function Leaderboard() {
             return {
               id: doc.id,
 
-              navn: `${data.navn} (${data.arbejdsnummer})`,
+              navn: `${data.navn} (${data.arbejdsnummer || "?"})`,
 
               tips: data.tips,
 
@@ -280,7 +280,7 @@ export default function Leaderboard() {
                   kamp.kampId
                 ];
 
-              if (!tip || !result)
+              if (!tip)
                 return null;
 
               const points =
@@ -304,14 +304,22 @@ export default function Leaderboard() {
                     {tip.home}-{tip.away}
                   </p>
 
-                  <p>
-                    Resultat:
-                    {result.home}-{result.away}
-                  </p>
+                  {result ? (
+                    <>
+                      <p>
+                        Resultat:
+                        {result.home}-{result.away}
+                      </p>
 
-                  <div className="points-earned">
-                    +{points} point
-                  </div>
+                      <div className="points-earned">
+                        +{points} point
+                      </div>
+                    </>
+                  ) : (
+                    <div className="points-pending">
+                      ⏳ Kamp ikke spillet endnu
+                    </div>
+                  )}
 
                 </div>
               );
