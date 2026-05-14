@@ -108,4 +108,48 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+  .rules-page *,
+.rules-page h1,
+.rules-page h2,
+.rules-page p {
+  color: white !important;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+}
+/* RULES PAGE */
+
+.rules-page {
+  min-height: 100vh;
+  background: #0b2a52;
+  padding: 60px 20px;
+  color: white;
+}
+
+.rules-page *,
+.rules-page h1,
+.rules-page h2,
+.rules-page p {
+  color: white !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.rules-page h1 {
+  font-size: 52px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.rules-page h2 {
+  font-size: 34px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.rules-page p {
+  font-size: 24px;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
