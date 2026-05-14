@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #14001f;
+  background: #071c38;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -31,17 +31,17 @@ body {
 .login-box {
   background: linear-gradient(
     180deg,
-    #8f00ff,
-    #4a0072
+    #1565c0,
+    #0b3d91
   );
 
   width: 100%;
 
-  max-width: 420px;
+  max-width: 450px;
 
   padding: 40px;
 
-  border-radius: 28px;
+  border-radius: 30px;
 
   text-align: center;
 
@@ -50,7 +50,7 @@ body {
 }
 
 .login-box h1 {
-  font-size: 38px;
+  font-size: 42px;
 
   margin-bottom: 30px;
 }
@@ -58,41 +58,73 @@ body {
 .login-box input {
   width: 100%;
 
-  padding: 16px;
+  padding: 18px;
 
   border: none;
-
-  outline: none;
 
   border-radius: 14px;
 
   font-size: 18px;
 
   margin-bottom: 15px;
+
+  outline: none;
 }
 
 .login-box button {
   width: 100%;
 
-  padding: 16px;
+  padding: 18px;
 
   border: none;
 
   border-radius: 14px;
 
-  background: #111;
+  background: #021326;
 
   color: white;
 
-  font-size: 18px;
+  font-size: 20px;
 
   font-weight: bold;
 
   cursor: pointer;
 }
 
+.links-row {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 15px;
+
+  margin-top: 25px;
+
+  flex-wrap: wrap;
+}
+
+.links-row a {
+  background: rgba(255,255,255,0.15);
+
+  padding: 12px 20px;
+
+  border-radius: 12px;
+
+  color: white;
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  transition: 0.2s;
+}
+
+.links-row a:hover {
+  transform: scale(1.05);
+}
+
 .fejl {
-  color: #ff5c5c;
+  color: #ff8080;
 
   margin-bottom: 15px;
 }
@@ -104,11 +136,11 @@ body {
 
   background: linear-gradient(
     90deg,
-    #6d00b3,
-    #a855f7
+    #0b3d91,
+    #1565c0
   );
 
-  padding: 30px;
+  padding: 25px;
 
   text-align: center;
 
@@ -126,11 +158,9 @@ body {
 .locked-status {
   margin-top: 10px;
 
-  color: #00ff88;
+  color: #7cffb2;
 
   font-weight: bold;
-
-  font-size: 18px;
 }
 
 /* KAMPE */
@@ -154,8 +184,8 @@ body {
 .kamp-kort {
   background: linear-gradient(
     180deg,
-    #b000ff,
-    #6f00b5
+    #1976d2,
+    #0d47a1
   );
 
   border-radius: 40px;
@@ -163,12 +193,15 @@ body {
   padding: 60px 40px;
 
   text-align: center;
+
+  box-shadow: 0 0 30px
+    rgba(0, 0, 0, 0.3);
 }
 
 .kamp-title {
-  font-size: 72px;
+  font-size: 64px;
 
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 
   font-weight: 900;
 }
@@ -178,11 +211,11 @@ body {
 
   justify-content: center;
 
-  gap: 35px;
+  gap: 30px;
 
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 
-  font-size: 28px;
+  font-size: 26px;
 
   font-weight: bold;
 }
@@ -198,23 +231,23 @@ body {
 
   align-items: center;
 
-  gap: 30px;
+  gap: 25px;
 
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .holdnavn {
-  font-size: 56px;
+  font-size: 48px;
 
   font-weight: bold;
 }
 
 .vs {
-  font-size: 70px;
+  font-size: 60px;
+
+  margin: 25px 0;
 
   font-weight: 900;
-
-  margin: 20px 0;
 }
 
 /* SELECT */
@@ -228,13 +261,15 @@ select {
 
   border-radius: 18px;
 
-  background: #111;
+  background: #021326;
 
   color: white;
 
   font-size: 34px;
 
   text-align: center;
+
+  outline: none;
 }
 
 /* ADMIN INPUT */
@@ -269,7 +304,7 @@ select {
   padding: 0 !important;
 }
 
-/* GEM */
+/* SAVE BUTTON */
 
 .gem-wrapper {
   position: fixed;
@@ -294,30 +329,18 @@ select {
 
   color: white;
 
-  font-size: 16px;
-
-  font-weight: bold;
+  font-size: 34px;
 
   cursor: pointer;
 
   box-shadow: 0 0 25px
-    rgba(0, 0, 0, 0.4);
+    rgba(0,0,0,0.4);
 
   transition: 0.2s;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  text-align: center;
-
-  padding: 10px;
 }
 
 .gem-btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .gem-btn.disabled {
@@ -326,25 +349,166 @@ select {
   cursor: not-allowed;
 }
 
-/* LEADERBOARD */
+/* CONFIRM */
 
-.leaderboard {
+.confirm-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0,0,0,0.75);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+}
+
+.confirm-box {
+  background: #021326;
+
+  width: 90%;
+
+  max-width: 420px;
+
+  padding: 40px;
+
+  border-radius: 24px;
+
+  text-align: center;
+}
+
+.confirm-box h2 {
+  font-size: 34px;
+
+  margin-bottom: 15px;
+}
+
+.confirm-box p {
+  margin-bottom: 30px;
+
+  color: #ddd;
+}
+
+.confirm-buttons {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 15px;
+}
+
+.cancel-btn,
+.confirm-btn {
+  border: none;
+
+  padding: 14px 24px;
+
+  border-radius: 14px;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #4d4d4d;
+
+  color: white;
+}
+
+.confirm-btn {
+  background: #1565c0;
+
+  color: white;
+}
+
+/* RULES + LEADERBOARD */
+
+.rules-page,
+.leaderboard-page {
+  min-height: 100vh;
+
+  background: linear-gradient(
+    to bottom,
+    #071c38,
+    #0b3d91
+  );
+
+  padding: 40px 20px;
+
+  display: flex;
+
+  justify-content: center;
+}
+
+.rules-box,
+.leaderboard-box {
   width: 100%;
 
   max-width: 1000px;
 
-  margin: 0 auto 100px;
+  background: linear-gradient(
+    to bottom,
+    #1565c0,
+    #0d47a1
+  );
 
-  padding: 20px;
+  border-radius: 30px;
+
+  padding: 40px;
+
+  box-shadow: 0 0 30px
+    rgba(0,0,0,0.3);
 }
 
-.leaderboard h1 {
+.rules-box h1,
+.leaderboard-box h1 {
   text-align: center;
 
-  font-size: 56px;
+  font-size: 54px;
 
   margin-bottom: 40px;
 }
+
+.rule-item {
+  background: rgba(255,255,255,0.08);
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  margin-bottom: 25px;
+}
+
+.rule-item h2 {
+  color: gold;
+
+  font-size: 34px;
+
+  margin-bottom: 10px;
+}
+
+.rule-item p {
+  font-size: 22px;
+
+  font-weight: bold;
+}
+
+.rule-item span {
+  display: block;
+
+  margin-top: 10px;
+
+  opacity: 0.9;
+}
+
+/* LEADERBOARD */
 
 .leaderboard-row {
   display: flex;
@@ -353,9 +517,9 @@ select {
 
   align-items: center;
 
-  background: #1d1d1d;
+  background: rgba(0,0,0,0.25);
 
-  padding: 25px 30px;
+  padding: 25px;
 
   border-radius: 22px;
 
@@ -394,90 +558,19 @@ select {
   );
 }
 
-/* CONFIRM */
-
-.confirm-overlay {
-  position: fixed;
-
-  inset: 0;
-
-  background: rgba(0, 0, 0, 0.75);
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  z-index: 999;
-}
-
-.confirm-box {
-  background: #1a1a1a;
-
-  width: 90%;
-
-  max-width: 420px;
-
-  padding: 40px;
-
-  border-radius: 24px;
-
-  text-align: center;
-}
-
-.confirm-box h2 {
-  font-size: 34px;
-
-  margin-bottom: 15px;
-}
-
-.confirm-box p {
-  color: #ccc;
-
-  margin-bottom: 30px;
-}
-
-.confirm-buttons {
-  display: flex;
-
-  justify-content: center;
-
-  gap: 15px;
-}
-
-.cancel-btn,
-.confirm-btn {
-  border: none;
-
-  padding: 14px 24px;
-
-  border-radius: 14px;
-
-  font-size: 18px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-}
-
-.cancel-btn {
-  background: #555;
-
-  color: white;
-}
-
-.confirm-btn {
-  background: #8f00ff;
-
-  color: white;
-}
-
 /* MOBILE */
 
 @media (max-width: 768px) {
 
   .kamp-title {
+    font-size: 30px;
+  }
+
+  .holdnavn {
+    font-size: 24px;
+  }
+
+  .vs {
     font-size: 34px;
   }
 
@@ -487,20 +580,10 @@ select {
     gap: 10px;
 
     font-size: 20px;
-
-    margin-bottom: 40px;
   }
 
   .hold-linje {
     flex-direction: column;
-  }
-
-  .holdnavn {
-    font-size: 32px;
-  }
-
-  .vs {
-    font-size: 48px;
   }
 
   select {
@@ -509,25 +592,26 @@ select {
     font-size: 24px;
   }
 
+  .topbar h2 {
+    font-size: 24px;
+  }
+
   .leaderboard-row {
-    font-size: 20px;
+    font-size: 18px;
 
     padding: 18px;
   }
 
-  .leaderboard h1 {
-    font-size: 38px;
+  .rules-box h1,
+  .leaderboard-box h1 {
+    font-size: 36px;
   }
 
-  .topbar h2 {
-    font-size: 26px;
-  }
+  .gem-btn {
+    width: 75px;
 
-  .result-input {
-    width: 70px !important;
+    height: 75px;
 
-    height: 70px !important;
-
-    font-size: 30px !important;
+    font-size: 28px;
   }
 }
