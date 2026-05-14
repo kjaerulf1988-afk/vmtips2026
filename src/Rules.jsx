@@ -1,6 +1,9 @@
 export default function Rules() {
+
   return (
+
     <div className="rules-page">
+
       <div className="rules-box">
 
         <h1>
@@ -8,6 +11,7 @@ export default function Rules() {
         </h1>
 
         <div className="rule-item">
+
           <h2>5 point</h2>
 
           <p>
@@ -15,11 +19,15 @@ export default function Rules() {
           </p>
 
           <span>
-            Eksempel: Du tipper 2-1 og kampen ender 2-1.
+            Eksempel:
+            Du tipper 2-1
+            og kampen ender 2-1.
           </span>
+
         </div>
 
         <div className="rule-item">
+
           <h2>4 point</h2>
 
           <p>
@@ -27,11 +35,15 @@ export default function Rules() {
           </p>
 
           <span>
-            Eksempel: Du tipper 4-0 og kampen ender 3-1.
+            Eksempel:
+            Du tipper 4-0
+            og kampen ender 3-1.
           </span>
+
         </div>
 
         <div className="rule-item">
+
           <h2>3 point</h2>
 
           <p>
@@ -39,19 +51,25 @@ export default function Rules() {
           </p>
 
           <span>
-            Eksempel: Du tipper 2-0 og kampen ender 1-0.
+            Eksempel:
+            Du tipper 2-0
+            og kampen ender 1-0.
           </span>
+
         </div>
 
         <div className="rule-item">
+
           <h2>0 point</h2>
 
           <p>
             Forkert resultat.
           </p>
+
         </div>
 
       </div>
+
     </div>
   );
 }
