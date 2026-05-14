@@ -10,7 +10,7 @@ import {
 import App from "./App";
 import AdminPanel from "./AdminPanel";
 import Leaderboard from "./Leaderboard";
-import Regler from "./Regler";
+import Rules from "./Rules";
 
 import "./index.css";
 
@@ -18,8 +18,11 @@ ReactDOM.createRoot(
   document.getElementById("root")
 ).render(
   <React.StrictMode>
+
     <BrowserRouter>
+
       <Routes>
+
         <Route
           path="/"
           element={<App />}
@@ -37,9 +40,12 @@ ReactDOM.createRoot(
 
         <Route
           path="/regler"
-          element={<Regler />}
+          element={<Rules />}
         />
+
       </Routes>
+
     </BrowserRouter>
+
   </React.StrictMode>
 );
