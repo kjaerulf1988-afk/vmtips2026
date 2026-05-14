@@ -665,3 +665,76 @@ select {
   color: #dbefff;
 }
 }
+.clickable {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.clickable:hover {
+  transform: scale(1.02);
+}
+
+.details-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 999;
+}
+
+.details-box {
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #0d47a1;
+  border-radius: 30px;
+  padding: 40px;
+  position: relative;
+}
+
+.details-box h2 {
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.match-detail {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.match-detail h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.match-detail p {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.points-earned {
+  margin-top: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #7cffb2;
+}

@@ -7,6 +7,8 @@ import {
 
 import { db } from "./firebase";
 
+import kampeData from "./kampe_dansk.json";
+
 export default function Leaderboard() {
 
   const [leaderboard, setLeaderboard] =
@@ -15,95 +17,124 @@ export default function Leaderboard() {
   const [liveResults, setLiveResults] =
     useState({});
 
+  const [selectedPlayer, setSelectedPlayer] =
+    useState(null);
+
+  // ALLE KAMPE
+
+  const alleKampe = kampeData
+    .flatMap((gruppeObjekt) =>
+      gruppeObjekt.kampe.map(
+        (kamp, index) => ({
+          ...kamp,
+
+          gruppe:
+            gruppeObjekt.gruppe,
+
+          kampId: `${gruppeObjekt.gruppe}-${index}`,
+        })
+      )
+    );
+
   // POINTSYSTEM
-  const calculatePoints = (
+
+  const calculateMatchPoints = (
+    tip,
+    result
+  ) => {
+
+    if (!tip || !result)
+      return 0;
+
+    const actualHome =
+      result.home;
+
+    const actualAway =
+      result.away;
+
+    const tipHome = Number(
+      tip.home
+    );
+
+    const tipAway = Number(
+      tip.away
+    );
+
+    const actualWinner =
+      actualHome > actualAway
+        ? "home"
+        : actualAway > actualHome
+        ? "away"
+        : "draw";
+
+    const tipWinner =
+      tipHome > tipAway
+        ? "home"
+        : tipAway > tipHome
+        ? "away"
+        : "draw";
+
+    const actualGoals =
+      actualHome + actualAway;
+
+    const tipGoals =
+      tipHome + tipAway;
+
+    // 5 POINT
+
+    if (
+      actualWinner === tipWinner &&
+      tipHome === actualHome &&
+      tipAway === actualAway
+    ) {
+      return 5;
+    }
+
+    // 4 POINT
+
+    if (
+      actualWinner === tipWinner &&
+      actualGoals === tipGoals
+    ) {
+      return 4;
+    }
+
+    // 3 POINT
+
+    if (
+      actualWinner === tipWinner
+    ) {
+      return 3;
+    }
+
+    return 0;
+  };
+
+  // TOTAL POINT
+
+  const calculateTotalPoints = (
     userTips,
     liveResults
   ) => {
 
-    let totalPoints = 0;
+    let total = 0;
 
     Object.keys(liveResults).forEach(
       (kampId) => {
 
-        const result =
-          liveResults[kampId];
-
-        const tip =
-          userTips[kampId];
-
-        if (!tip) return;
-
-        const actualHome =
-          result.home;
-
-        const actualAway =
-          result.away;
-
-        const tipHome = Number(
-          tip.home
-        );
-
-        const tipAway = Number(
-          tip.away
-        );
-
-        // 4 POINT
-        if (
-          tipHome === actualHome &&
-          tipAway === actualAway
-        ) {
-
-          totalPoints += 4;
-
-          return;
-        }
-
-        // 3 POINT
-        const actualWinner =
-          actualHome > actualAway
-            ? "home"
-            : actualAway >
-              actualHome
-            ? "away"
-            : "draw";
-
-        const tipWinner =
-          tipHome > tipAway
-            ? "home"
-            : tipAway > tipHome
-            ? "away"
-            : "draw";
-
-        if (
-          actualWinner === tipWinner
-        ) {
-
-          totalPoints += 3;
-
-          return;
-        }
-
-        // 1 POINT
-        const actualGoals =
-          actualHome + actualAway;
-
-        const tipGoals =
-          tipHome + tipAway;
-
-        if (
-          actualGoals === tipGoals
-        ) {
-
-          totalPoints += 1;
-        }
+        total +=
+          calculateMatchPoints(
+            userTips[kampId],
+            liveResults[kampId]
+          );
       }
     );
 
-    return totalPoints;
+    return total;
   };
 
   // LIVE RESULTATER
+
   useEffect(() => {
 
     const unsubscribe = onSnapshot(
@@ -114,7 +145,6 @@ export default function Leaderboard() {
         const loadedResults = {};
 
         snapshot.forEach((doc) => {
-
           loadedResults[doc.id] =
             doc.data();
         });
@@ -129,7 +159,8 @@ export default function Leaderboard() {
 
   }, []);
 
-  // LIVE LEADERBOARD
+  // LEADERBOARD
+
   useEffect(() => {
 
     const unsubscribe = onSnapshot(
@@ -140,17 +171,17 @@ export default function Leaderboard() {
         const players =
           snapshot.docs.map((doc) => {
 
-            const data =
-              doc.data();
+            const data = doc.data();
 
             return {
-
               id: doc.id,
 
-              navn: data.navn,
+              navn: `${data.navn} (${data.arbejdsnummer})`,
+
+              tips: data.tips,
 
               points:
-                calculatePoints(
+                calculateTotalPoints(
                   data.tips,
                   liveResults
                 ),
@@ -185,7 +216,11 @@ export default function Leaderboard() {
             <div
               key={player.id}
 
-              className={`leaderboard-row ${
+              onClick={() =>
+                setSelectedPlayer(player)
+              }
+
+              className={`leaderboard-row clickable ${
                 index === 0
                   ? "gold"
                   : index === 1
@@ -196,15 +231,15 @@ export default function Leaderboard() {
               }`}
             >
 
-              <div className="leaderboard-rank">
+              <div>
                 #{index + 1}
               </div>
 
-              <div className="leaderboard-name">
+              <div>
                 {player.navn}
               </div>
 
-              <div className="leaderboard-points">
+              <div>
                 {player.points} pts
               </div>
 
@@ -213,6 +248,79 @@ export default function Leaderboard() {
         )}
 
       </div>
+
+      {selectedPlayer && (
+
+        <div className="details-overlay">
+
+          <div className="details-box">
+
+            <button
+              className="close-btn"
+              onClick={() =>
+                setSelectedPlayer(null)
+              }
+            >
+              ✕
+            </button>
+
+            <h2>
+              {selectedPlayer.navn}
+            </h2>
+
+            {alleKampe.map((kamp) => {
+
+              const tip =
+                selectedPlayer.tips?.[
+                  kamp.kampId
+                ];
+
+              const result =
+                liveResults[
+                  kamp.kampId
+                ];
+
+              if (!tip || !result)
+                return null;
+
+              const points =
+                calculateMatchPoints(
+                  tip,
+                  result
+                );
+
+              return (
+                <div
+                  key={kamp.kampId}
+                  className="match-detail"
+                >
+
+                  <h3>
+                    {kamp.hjemmehold} - {kamp.udehold}
+                  </h3>
+
+                  <p>
+                    Dit tip:
+                    {tip.home}-{tip.away}
+                  </p>
+
+                  <p>
+                    Resultat:
+                    {result.home}-{result.away}
+                  </p>
+
+                  <div className="points-earned">
+                    +{points} point
+                  </div>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );
