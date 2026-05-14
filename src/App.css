@@ -614,4 +614,54 @@ select {
 
     font-size: 28px;
   }
+  .rules-page {
+  min-height: 100vh;
+  background: #0b2a52;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.rules-box {
+  width: 100%;
+  max-width: 900px;
+  background: #163d73;
+  border-radius: 30px;
+  padding: 40px;
+  color: white;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.rules-box h1 {
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.rule-item {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.rule-item h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #7ec8ff;
+}
+
+.rule-item p {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.rule-item span {
+  font-size: 18px;
+  opacity: 0.9;
+  color: #dbefff;
+}
 }
