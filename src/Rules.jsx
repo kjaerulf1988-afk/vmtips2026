@@ -1,28 +1,43 @@
-function Rules() {
+export default function Rules() {
   return (
     <div
       style={{
         minHeight: "100vh",
-        background: "#0b2a52",
+        backgroundColor: "#0b2a52",
         color: "white",
-        padding: "50px"
+        padding: "40px",
+        fontSize: "24px"
       }}
     >
       <h1>VM Tips Regler</h1>
 
-      <h2>5 point</h2>
-      <p>Korrekt vinder + korrekt målscore</p>
+      <br />
 
-      <h2>4 point</h2>
-      <p>Korrekt vinder + korrekt antal samlede mål</p>
+      <h2>🏆 5 point</h2>
+      <p>
+        Korrekt vinder + korrekt målscore
+      </p>
 
-      <h2>3 point</h2>
-      <p>Korrekt vinder</p>
+      <br />
 
-      <h2>0 point</h2>
-      <p>Forkert resultat</p>
+      <h2>⚽ 4 point</h2>
+      <p>
+        Korrekt vinder + korrekt samlet antal mål
+      </p>
+
+      <br />
+
+      <h2>✅ 3 point</h2>
+      <p>
+        Korrekt vinder
+      </p>
+
+      <br />
+
+      <h2>❌ 0 point</h2>
+      <p>
+        Forkert resultat
+      </p>
     </div>
   );
 }
-
-export default Rules;
