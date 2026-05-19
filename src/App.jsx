@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./App.css";
 
 import kampeData from "./kampe_dansk.json";
 
 import {
-  collection,
-  addDoc,
+  doc,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 
 import { db } from "./firebase";
@@ -31,57 +32,8 @@ function App() {
   const [tipsLocked, setTipsLocked] =
     useState(false);
 
-  const [showConfirm, setShowConfirm] =
+  const [savedMessage, setSavedMessage] =
     useState(false);
-
-  // LOGIN
-
-  const login = () => {
-
-    if (
-      navn.trim() === "" ||
-      arbejdsnummer.trim() === ""
-    ) {
-
-      setFejl(
-        "Udfyld navn og arbejdsnummer"
-      );
-
-      return;
-    }
-
-    setFejl("");
-
-    setLoggedIn(true);
-  };
-
-  // ENTER
-
-  const handleKeyPress = (e) => {
-
-    if (e.key === "Enter") {
-      login();
-    }
-  };
-
-  // UPDATE TIPS
-
-  const updateTip = (
-    kampId,
-    team,
-    value
-  ) => {
-
-    setTips((prev) => ({
-      ...prev,
-
-      [kampId]: {
-        ...prev[kampId],
-
-        [team]: value,
-      },
-    }));
-  };
 
   // SORTER KAMPE
 
@@ -129,25 +81,95 @@ function App() {
       );
     });
 
-  // CHECK TIPS
+  // LOGIN + LOAD TIPS
 
-  const alleTipsUdfyldt =
-    alleKampe.every(
-      (kamp) =>
-        tips[kamp.kampId]?.home !==
-          undefined &&
-        tips[kamp.kampId]?.away !==
-          undefined
-    );
+  const login = async () => {
 
-  // GEM TIPS
+    if (
+      navn.trim() === "" ||
+      arbejdsnummer.trim() === ""
+    ) {
 
-  const gemTips = async () => {
+      setFejl(
+        "Udfyld navn og arbejdsnummer"
+      );
+
+      return;
+    }
 
     try {
 
-      await addDoc(
-        collection(db, "tips"),
+      const docRef = doc(
+        db,
+        "tips",
+        arbejdsnummer
+      );
+
+      const docSnap =
+        await getDoc(docRef);
+
+      if (docSnap.exists()) {
+
+        const data =
+          docSnap.data();
+
+        setTips(data.tips || {});
+
+        setTipsLocked(
+          data.locked || false
+        );
+      }
+
+      setLoggedIn(true);
+
+    } catch (error) {
+
+      console.error(error);
+
+      setFejl(
+        "Fejl ved login"
+      );
+    }
+  };
+
+  // ENTER
+
+  const handleKeyPress = (e) => {
+
+    if (e.key === "Enter") {
+      login();
+    }
+  };
+
+  // UPDATE TIP
+
+  const updateTip = (
+    kampId,
+    team,
+    value
+  ) => {
+
+    if (tipsLocked) return;
+
+    setTips((prev) => ({
+      ...prev,
+
+      [kampId]: {
+        ...prev[kampId],
+
+        [team]: value,
+      },
+    }));
+  };
+
+  // GEM KLADDE
+
+  const saveDraft = async () => {
+
+    try {
+
+      await setDoc(
+        doc(db, "tips", arbejdsnummer),
 
         {
           navn,
@@ -156,25 +178,65 @@ function App() {
 
           tips,
 
-          tidspunkt: new Date(),
+          locked: false,
+
+          updatedAt: new Date(),
+        }
+      );
+
+      setSavedMessage(true);
+
+      setTimeout(() => {
+        setSavedMessage(false);
+      }, 3000);
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert("Fejl ved gemning");
+    }
+  };
+
+  // INDSEND ENDELIGE TIPS
+
+  const submitFinalTips = async () => {
+
+    const confirmed = window.confirm(
+      "Er du sikker? Dine tips bliver låst."
+    );
+
+    if (!confirmed) return;
+
+    try {
+
+      await setDoc(
+        doc(db, "tips", arbejdsnummer),
+
+        {
+          navn,
+
+          arbejdsnummer,
+
+          tips,
+
+          locked: true,
+
+          updatedAt: new Date(),
         }
       );
 
       setTipsLocked(true);
 
-      setShowConfirm(false);
-
       alert(
-        "🔥 Tips er nu låst!"
+        "🔥 Dine tips er nu låst"
       );
 
     } catch (error) {
 
       console.error(error);
 
-      alert(
-        "Fejl ved gemning"
-      );
+      alert("Fejl ved indsendelse");
     }
   };
 
@@ -193,7 +255,7 @@ function App() {
 
             <input
               type="text"
-              placeholder="Indtast navn"
+              placeholder="Navn"
               value={navn}
               onChange={(e) =>
                 setNavn(
@@ -226,6 +288,7 @@ function App() {
             </button>
 
             <div className="links-row">
+
               <a href="/leaderboard">
                 🏆 Leaderboard
               </a>
@@ -233,6 +296,7 @@ function App() {
               <a href="/regler">
                 📖 Regler
               </a>
+
             </div>
 
           </div>
@@ -249,9 +313,13 @@ function App() {
               Velkommen {navn}
             </h2>
 
-            {tipsLocked && (
+            {tipsLocked ? (
               <div className="locked-status">
-                ✅ Tips er låst
+                🔒 Tips er låst
+              </div>
+            ) : (
+              <div className="locked-status open-status">
+                ✏️ Tips kan stadig ændres
               </div>
             )}
 
@@ -373,61 +441,28 @@ function App() {
 
           {!tipsLocked && (
 
-            <div className="gem-wrapper">
+            <div className="save-buttons">
 
               <button
-                className={`gem-btn ${
-                  !alleTipsUdfyldt
-                    ? "disabled"
-                    : ""
-                }`}
-                disabled={!alleTipsUdfyldt}
-                onClick={() =>
-                  setShowConfirm(true)
-                }
+                className="draft-btn"
+                onClick={saveDraft}
               >
-                💾
+                💾 Gem kladde
+              </button>
+
+              <button
+                className="final-btn"
+                onClick={submitFinalTips}
+              >
+                🔒 Indsend endelige tips
               </button>
 
             </div>
           )}
 
-          {showConfirm && (
-
-            <div className="confirm-overlay">
-
-              <div className="confirm-box">
-
-                <h2>
-                  Er du sikker?
-                </h2>
-
-                <p>
-                  Du kan IKKE ændre dine tips bagefter.
-                </p>
-
-                <div className="confirm-buttons">
-
-                  <button
-                    className="cancel-btn"
-                    onClick={() =>
-                      setShowConfirm(false)
-                    }
-                  >
-                    Annuller
-                  </button>
-
-                  <button
-                    className="confirm-btn"
-                    onClick={gemTips}
-                  >
-                    Ja, gem tips
-                  </button>
-
-                </div>
-
-              </div>
-
+          {savedMessage && (
+            <div className="saved-popup">
+              ✅ Kladde gemt
             </div>
           )}
 

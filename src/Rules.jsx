@@ -13,7 +13,7 @@ export default function Rules() {
           <h2>🥇 5 Point</h2>
 
           <p>
-            Korrekt vinder OG korrekt målscore.
+            Korrekt vinder/uafgjort OG korrekt målscore.
           </p>
 
           <span>
@@ -28,7 +28,7 @@ export default function Rules() {
           <h2>⚽ 4 Point</h2>
 
           <p>
-            Korrekt vinder OG korrekt samlet antal mål.
+            Korrekt vinder/uafgjort OG korrekt samlet antal mål.
           </p>
 
           <span>
@@ -43,7 +43,7 @@ export default function Rules() {
           <h2>✅ 3 Point</h2>
 
           <p>
-            Korrekt vinder.
+            Korrekt vinder eller uafgjort.
           </p>
 
           <span>

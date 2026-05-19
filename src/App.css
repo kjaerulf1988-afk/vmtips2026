@@ -752,3 +752,49 @@ select {
     font-size: 28px;
   }
 }
+.save-buttons {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 999;
+}
+
+.draft-btn,
+.final-btn {
+  border: none;
+  border-radius: 18px;
+  padding: 18px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.draft-btn {
+  background: #ffd54f;
+  color: black;
+}
+
+.final-btn {
+  background: #00d26a;
+  color: white;
+}
+
+.saved-popup {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  background: #00d26a;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 18px;
+  font-weight: bold;
+  z-index: 999;
+}
+
+.open-status {
+  color: #ffd966;
+}
