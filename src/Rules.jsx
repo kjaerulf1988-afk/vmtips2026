@@ -55,6 +55,21 @@ export default function Rules() {
 
         <div className="rule-card">
 
+          <h2>🎯 1 Point</h2>
+
+          <p>
+            Korrekt samlet antal mål, men forkert vinder/uafgjort.
+          </p>
+
+          <span>
+            Eksempel:
+            Du tipper 1-0 og kampen ender 0-1.
+          </span>
+
+        </div>
+
+        <div className="rule-card">
+
           <h2>❌ 0 Point</h2>
 
           <p>

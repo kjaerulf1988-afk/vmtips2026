@@ -64,15 +64,15 @@ export default function Leaderboard() {
       actualHome > actualAway
         ? "home"
         : actualAway > actualHome
-        ? "away"
-        : "draw";
+          ? "away"
+          : "draw";
 
     const tipWinner =
       tipHome > tipAway
         ? "home"
         : tipAway > tipHome
-        ? "away"
-        : "draw";
+          ? "away"
+          : "draw";
 
     const actualGoals =
       actualHome + actualAway;
@@ -104,7 +104,13 @@ export default function Leaderboard() {
     if (
       actualWinner === tipWinner
     ) {
-      return 3;
+      return 3; 
+    }
+
+    if (
+      actualGoals === tipGoals
+    ) {
+      return 1;
     }
 
     return 0;
@@ -169,12 +175,20 @@ export default function Leaderboard() {
       (snapshot) => {
 
         const players =
-          snapshot.docs.map((doc) => {
+          snapshot.docs
 
-            const data = doc.data();
-
-            return {
+            .map((doc) => ({
               id: doc.id,
+              ...doc.data(),
+            }))
+
+            .filter(
+              (player) =>
+                player.locked === true
+            )
+
+            .map((data) => ({
+              id: data.id,
 
               navn: `${data.navn} (${data.arbejdsnummer || "?"})`,
 
@@ -185,9 +199,7 @@ export default function Leaderboard() {
                   data.tips,
                   liveResults
                 ),
-            };
-          });
-
+            }));
         players.sort(
           (a, b) =>
             b.points - a.points
@@ -220,15 +232,14 @@ export default function Leaderboard() {
                 setSelectedPlayer(player)
               }
 
-              className={`leaderboard-row clickable ${
-                index === 0
-                  ? "gold"
-                  : index === 1
+              className={`leaderboard-row clickable ${index === 0
+                ? "gold"
+                : index === 1
                   ? "silver"
                   : index === 2
-                  ? "bronze"
-                  : ""
-              }`}
+                    ? "bronze"
+                    : ""
+                }`}
             >
 
               <div>
@@ -272,12 +283,12 @@ export default function Leaderboard() {
 
               const tip =
                 selectedPlayer.tips?.[
-                  kamp.kampId
+                kamp.kampId
                 ];
 
               const result =
                 liveResults[
-                  kamp.kampId
+                kamp.kampId
                 ];
 
               if (!tip)
@@ -288,48 +299,99 @@ export default function Leaderboard() {
                   tip,
                   result
                 );
+                          let reason = "";
 
-              return (
-                <div
-                  key={kamp.kampId}
-                  className="match-detail"
-                >
+                if (result) {
 
-                  <h3>
-                    {kamp.hjemmehold} - {kamp.udehold}
-                  </h3>
+                  const actualGoals =
+                    result.home + result.away;
 
-                  <p>
-                    Dit tip:
-                    {tip.home}-{tip.away}
-                  </p>
+                  const tipGoals =
+                    Number(tip.home) +
+                    Number(tip.away);
 
-                  {result ? (
-                    <>
-                      <p>
-                        Resultat:
-                        {result.home}-{result.away}
-                      </p>
+                  const actualWinner =
+                    result.home > result.away
+                      ? "home"
+                      : result.away > result.home
+                      ? "away"
+                      : "draw";
 
-                      <div className="points-earned">
-                        +{points} point
+                  const tipWinner =
+                    Number(tip.home) >
+                    Number(tip.away)
+                      ? "home"
+                      : Number(tip.away) >
+                        Number(tip.home)
+                      ? "away"
+                      : "draw";
+
+                  if (
+                    Number(tip.home) === result.home &&
+                    Number(tip.away) === result.away
+                  ) {
+                    reason = "🏆 Korrekt resultat";
+                  } else if (
+                    actualWinner === tipWinner &&
+                    actualGoals === tipGoals
+                  ) {
+                    reason =
+                      "⚽ Korrekt vinder + korrekt antal mål";
+                  } else if (
+                    actualWinner === tipWinner
+                  ) {
+                    reason =
+                      "✅ Korrekt vinder/uafgjort";
+                  } else if (
+                    actualGoals === tipGoals
+                  ) {
+                    reason =
+                      "🎯 Korrekt antal mål";
+                  } else {
+                    reason =
+                      "❌ Intet ramt";
+                  }
+                }
+
+                return (
+                  <div
+                    key={kamp.kampId}
+                    className="match-detail"
+                  >
+                    <h3>
+                      {kamp.hjemmehold} - {kamp.udehold}
+                    </h3>
+
+                    <p>
+                      Dit tip: {tip.home}-{tip.away}
+                    </p>
+
+                    {result ? (
+                      <>
+                        <p>
+                          Resultat: {result.home}-{result.away}
+                        </p>
+
+                        <div className="points-earned">
+                          +{points} point
+                        </div>
+
+                        <div className="point-reason">
+                          {reason}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="points-pending">
+                        ⏳ Kamp ikke spillet endnu
                       </div>
-                    </>
-                  ) : (
-                    <div className="points-pending">
-                      ⏳ Kamp ikke spillet endnu
-                    </div>
-                  )}
-
-                </div>
-              );
-            })}
-
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
+        )}
 
-        </div>
-      )}
-
-    </div>
-  );
+      </div>
+    );
 }

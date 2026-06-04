@@ -798,3 +798,9 @@ select {
 .open-status {
   color: #ffd966;
 }
+.point-reason {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0.9;
+}
