@@ -2,13 +2,13 @@ export default function Rules() {
   return (
     <div className="rules-page">
 
-      <div className="rules-container">
+      <div className="rules-box">
 
         <h1>
           🏆 VM Tips Regler
         </h1>
 
-        <div className="rule-card">
+        <div className="rule-item">
 
           <h2>🥇 5 Point</h2>
 
@@ -23,7 +23,7 @@ export default function Rules() {
 
         </div>
 
-        <div className="rule-card">
+        <div className="rule-item">
 
           <h2>⚽ 4 Point</h2>
 
@@ -38,7 +38,7 @@ export default function Rules() {
 
         </div>
 
-        <div className="rule-card">
+        <div className="rule-item">
 
           <h2>✅ 3 Point</h2>
 
@@ -53,7 +53,7 @@ export default function Rules() {
 
         </div>
 
-        <div className="rule-card">
+        <div className="rule-item">
 
           <h2>🎯 1 Point</h2>
 
@@ -68,7 +68,7 @@ export default function Rules() {
 
         </div>
 
-        <div className="rule-card">
+        <div className="rule-item">
 
           <h2>❌ 0 Point</h2>
 
@@ -78,7 +78,7 @@ export default function Rules() {
 
         </div>
 
-        <div className="rule-card prize-card">
+        <div className="rule-item prize-card">
 
           <h2>
             💰 Præmiefordeling

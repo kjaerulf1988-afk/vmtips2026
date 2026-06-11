@@ -243,67 +243,54 @@ function App() {
   return (
     <div className="app">
 
-      {!loggedIn ? (
+{!loggedIn ? (
 
-        <div className="login-container">
+  <div className="login-container">
 
-          <div className="login-box">
+    <div className="login-box">
 
-            <h1>
-              🏆 VM Tips 2026
-            </h1>
+      <h1>
+        🏆 VM Tips 2026
+      </h1>
 
-            <input
-              type="text"
-              placeholder="Navn"
-              value={navn}
-              onChange={(e) =>
-                setNavn(
-                  e.target.value
-                )
-              }
-              onKeyDown={handleKeyPress}
-            />
+      <h2
+        style={{
+          marginBottom: "25px",
+          color: "#ffd966",
+        }}
+      >
+        Tipsfristen er udløbet
+      </h2>
 
-            <input
-              type="text"
-              placeholder="Arbejdsnummer"
-              value={arbejdsnummer}
-              onChange={(e) =>
-                setArbejdsnummer(
-                  e.target.value
-                )
-              }
-              onKeyDown={handleKeyPress}
-            />
+      <p
+        style={{
+          marginBottom: "30px",
+          fontSize: "18px",
+          lineHeight: "1.5",
+        }}
+      >
+        Alle tips er nu låst.
+        <br />
+        Følg stillingen på leaderboardet.
+      </p>
 
-            {fejl && (
-              <p className="fejl">
-                {fejl}
-              </p>
-            )}
+      <div className="links-row">
 
-            <button onClick={login}>
-              Start
-            </button>
+        <a href="/leaderboard">
+          🏆 Leaderboard
+        </a>
 
-            <div className="links-row">
+        <a href="/regler">
+          📖 Regler
+        </a>
 
-              <a href="/leaderboard">
-                🏆 Leaderboard
-              </a>
+      </div>
 
-              <a href="/regler">
-                📖 Regler
-              </a>
+    </div>
 
-            </div>
+  </div>
 
-          </div>
-
-        </div>
-
-      ) : (
+) : (
 
         <>
 
