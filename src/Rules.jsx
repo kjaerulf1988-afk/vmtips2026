@@ -77,7 +77,28 @@ export default function Rules() {
           </p>
 
         </div>
+<div className="rule-card">
 
+  <h2>
+    🏅 Pointlighed
+  </h2>
+
+  <p>
+    Hvis flere deltagere har samme antal point,
+    afgøres placeringen efter følgende rækkefølge:
+  </p>
+
+  <span>
+    1. Flest 5-point kampe
+    <br />
+    2. Flest 4-point kampe
+    <br />
+    3. Flest 3-point kampe
+    <br />
+    4. Flest 1-point kampe
+  </span>
+
+</div>
         <div className="rule-item prize-card">
 
           <h2>
