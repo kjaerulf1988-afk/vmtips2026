@@ -23,18 +23,44 @@ export default function Leaderboard() {
   // ALLE KAMPE
 
   const alleKampe = kampeData
-    .flatMap((gruppeObjekt) =>
-      gruppeObjekt.kampe.map(
-        (kamp, index) => ({
-          ...kamp,
+  .flatMap((gruppeObjekt) =>
+    gruppeObjekt.kampe.map(
+      (kamp, index) => ({
+        ...kamp,
+        gruppe: gruppeObjekt.gruppe,
+        kampId: `${gruppeObjekt.gruppe}-${index}`,
+      })
+    )
+  )
+  .sort((a, b) => {
 
-          gruppe:
-            gruppeObjekt.gruppe,
+    const måneder = {
+      JUN: 5,
+      JUL: 6,
+    };
 
-          kampId: `${gruppeObjekt.gruppe}-${index}`,
-        })
-      )
+    const parseDato = (datoStr) => {
+
+      const [dag, måned, tid] =
+        datoStr.split(" ");
+
+      const [timer, minutter] =
+        tid.split(":");
+
+      return new Date(
+        2026,
+        måneder[måned],
+        parseInt(dag),
+        parseInt(timer),
+        parseInt(minutter)
+      );
+    };
+
+    return (
+      parseDato(a.dato) -
+      parseDato(b.dato)
     );
+  });
 
   // POINTSYSTEM
 
@@ -358,9 +384,13 @@ export default function Leaderboard() {
                     key={kamp.kampId}
                     className="match-detail"
                   >
-                    <h3>
-                      {kamp.hjemmehold} - {kamp.udehold}
-                    </h3>
+                   <div className="match-date">
+  {kamp.dato}
+</div>
+
+<h3>
+  {kamp.hjemmehold} - {kamp.udehold}
+</h3>
 
                     <p>
                       Dit tip: {tip.home}-{tip.away}
