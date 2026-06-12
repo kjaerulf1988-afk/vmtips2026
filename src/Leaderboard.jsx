@@ -23,44 +23,44 @@ export default function Leaderboard() {
   // ALLE KAMPE
 
   const alleKampe = kampeData
-  .flatMap((gruppeObjekt) =>
-    gruppeObjekt.kampe.map(
-      (kamp, index) => ({
-        ...kamp,
-        gruppe: gruppeObjekt.gruppe,
-        kampId: `${gruppeObjekt.gruppe}-${index}`,
-      })
+    .flatMap((gruppeObjekt) =>
+      gruppeObjekt.kampe.map(
+        (kamp, index) => ({
+          ...kamp,
+          gruppe: gruppeObjekt.gruppe,
+          kampId: `${gruppeObjekt.gruppe}-${index}`,
+        })
+      )
     )
-  )
-  .sort((a, b) => {
+    .sort((a, b) => {
 
-    const måneder = {
-      JUN: 5,
-      JUL: 6,
-    };
+      const måneder = {
+        JUN: 5,
+        JUL: 6,
+      };
 
-    const parseDato = (datoStr) => {
+      const parseDato = (datoStr) => {
 
-      const [dag, måned, tid] =
-        datoStr.split(" ");
+        const [dag, måned, tid] =
+          datoStr.split(" ");
 
-      const [timer, minutter] =
-        tid.split(":");
+        const [timer, minutter] =
+          tid.split(":");
 
-      return new Date(
-        2026,
-        måneder[måned],
-        parseInt(dag),
-        parseInt(timer),
-        parseInt(minutter)
+        return new Date(
+          2026,
+          måneder[måned],
+          parseInt(dag),
+          parseInt(timer),
+          parseInt(minutter)
+        );
+      };
+
+      return (
+        parseDato(a.dato) -
+        parseDato(b.dato)
       );
-    };
-
-    return (
-      parseDato(a.dato) -
-      parseDato(b.dato)
-    );
-  });
+    });
 
   // POINTSYSTEM
 
@@ -130,7 +130,7 @@ export default function Leaderboard() {
     if (
       actualWinner === tipWinner
     ) {
-      return 3; 
+      return 3;
     }
 
     if (
@@ -144,100 +144,169 @@ export default function Leaderboard() {
 
   // TOTAL POINT
 
-  const calculateTotalPoints = (
+  const calculateStats = (
     userTips,
     liveResults
   ) => {
 
-    let total = 0;
+    let totalPoints = 0;
+
+    let fivePointers = 0;
+    let fourPointers = 0;
+    let threePointers = 0;
+    let onePointers = 0;
 
     Object.keys(liveResults).forEach(
       (kampId) => {
 
-        total +=
+        const points =
           calculateMatchPoints(
-            userTips[kampId],
+            userTips?.[kampId],
             liveResults[kampId]
           );
+
+        totalPoints += points;
+
+        if (points === 5) fivePointers++;
+        if (points === 4) fourPointers++;
+        if (points === 3) threePointers++;
+        if (points === 1) onePointers++;
       }
     );
 
-    return total;
+    return {
+      totalPoints,
+      fivePointers,
+      fourPointers,
+      threePointers,
+      onePointers,
+    };
   };
 
-  // LIVE RESULTATER
 
-  useEffect(() => {
+// LIVE RESULTATER
 
-    const unsubscribe = onSnapshot(
-      collection(db, "results"),
+useEffect(() => {
 
-      (snapshot) => {
+  const unsubscribe = onSnapshot(
+    collection(db, "results"),
 
-        const loadedResults = {};
+    (snapshot) => {
 
-        snapshot.forEach((doc) => {
-          loadedResults[doc.id] =
-            doc.data();
-        });
+      const loadedResults = {};
 
-        setLiveResults(
-          loadedResults
-        );
-      }
-    );
+      snapshot.forEach((doc) => {
+        loadedResults[doc.id] =
+          doc.data();
+      });
 
-    return () => unsubscribe();
+      setLiveResults(
+        loadedResults
+      );
+    }
+  );
 
-  }, []);
+  return () => unsubscribe();
 
-  // LEADERBOARD
+}, []);
 
-  useEffect(() => {
+// LEADERBOARD
 
-    const unsubscribe = onSnapshot(
-      collection(db, "tips"),
+useEffect(() => {
 
-      (snapshot) => {
+  const unsubscribe = onSnapshot(
+    collection(db, "tips"),
 
-        const players =
-          snapshot.docs
+    (snapshot) => {
 
-            .map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
+      const players =
+        snapshot.docs
 
-            .filter(
-              (player) =>
-                player.locked === true
-            )
+          .map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }))
 
-            .map((data) => ({
+          .filter(
+            (player) =>
+              player.locked === true
+          )
+
+          .map((data) => {
+
+            const stats =
+              calculateStats(
+                data.tips,
+                liveResults
+              );
+
+            return {
               id: data.id,
 
               navn: `${data.navn} (${data.arbejdsnummer || "?"})`,
 
               tips: data.tips,
 
-              points:
-                calculateTotalPoints(
-                  data.tips,
-                  liveResults
-                ),
-            }));
-        players.sort(
-          (a, b) =>
-            b.points - a.points
+              points: stats.totalPoints,
+
+              fivePointers:
+                stats.fivePointers,
+
+              fourPointers:
+                stats.fourPointers,
+
+              threePointers:
+                stats.threePointers,
+
+              onePointers:
+                stats.onePointers,
+            };
+          });
+      players.sort((a, b) => {
+
+        if (b.points !== a.points)
+          return b.points - a.points;
+
+        if (
+          b.fivePointers !==
+          a.fivePointers
+        )
+          return (
+            b.fivePointers -
+            a.fivePointers
+          );
+
+        if (
+          b.fourPointers !==
+          a.fourPointers
+        )
+          return (
+            b.fourPointers -
+            a.fourPointers
+          );
+
+        if (
+          b.threePointers !==
+          a.threePointers
+        )
+          return (
+            b.threePointers -
+            a.threePointers
+          );
+
+        return (
+          b.onePointers -
+          a.onePointers
         );
+      });
+setLeaderboard(players);
 
-        setLeaderboard(players);
-      }
-    );
+}
+);
 
-    return () => unsubscribe();
+return () => unsubscribe();
 
-  }, [liveResults]);
+    }, [liveResults]);
 
   return (
     <div className="leaderboard-page">
@@ -325,103 +394,103 @@ export default function Leaderboard() {
                   tip,
                   result
                 );
-                          let reason = "";
+              let reason = "";
 
-                if (result) {
+              if (result) {
 
-                  const actualGoals =
-                    result.home + result.away;
+                const actualGoals =
+                  result.home + result.away;
 
-                  const tipGoals =
-                    Number(tip.home) +
-                    Number(tip.away);
+                const tipGoals =
+                  Number(tip.home) +
+                  Number(tip.away);
 
-                  const actualWinner =
-                    result.home > result.away
-                      ? "home"
-                      : result.away > result.home
+                const actualWinner =
+                  result.home > result.away
+                    ? "home"
+                    : result.away > result.home
                       ? "away"
                       : "draw";
 
-                  const tipWinner =
-                    Number(tip.home) >
+                const tipWinner =
+                  Number(tip.home) >
                     Number(tip.away)
-                      ? "home"
-                      : Number(tip.away) >
-                        Number(tip.home)
+                    ? "home"
+                    : Number(tip.away) >
+                      Number(tip.home)
                       ? "away"
                       : "draw";
 
-                  if (
-                    Number(tip.home) === result.home &&
-                    Number(tip.away) === result.away
-                  ) {
-                    reason = "🏆 Korrekt resultat";
-                  } else if (
-                    actualWinner === tipWinner &&
-                    actualGoals === tipGoals
-                  ) {
-                    reason =
-                      "⚽ Korrekt vinder + korrekt antal mål";
-                  } else if (
-                    actualWinner === tipWinner
-                  ) {
-                    reason =
-                      "✅ Korrekt vinder/uafgjort";
-                  } else if (
-                    actualGoals === tipGoals
-                  ) {
-                    reason =
-                      "🎯 Korrekt antal mål";
-                  } else {
-                    reason =
-                      "❌ Intet ramt";
-                  }
+                if (
+                  Number(tip.home) === result.home &&
+                  Number(tip.away) === result.away
+                ) {
+                  reason = "🏆 Korrekt resultat";
+                } else if (
+                  actualWinner === tipWinner &&
+                  actualGoals === tipGoals
+                ) {
+                  reason =
+                    "⚽ Korrekt vinder + korrekt antal mål";
+                } else if (
+                  actualWinner === tipWinner
+                ) {
+                  reason =
+                    "✅ Korrekt vinder/uafgjort";
+                } else if (
+                  actualGoals === tipGoals
+                ) {
+                  reason =
+                    "🎯 Korrekt antal mål";
+                } else {
+                  reason =
+                    "❌ Intet ramt";
                 }
+              }
 
-                return (
-                  <div
-                    key={kamp.kampId}
-                    className="match-detail"
-                  >
-                   <div className="match-date">
-  {kamp.dato}
-</div>
-
-<h3>
-  {kamp.hjemmehold} - {kamp.udehold}
-</h3>
-
-                    <p>
-                      Dit tip: {tip.home}-{tip.away}
-                    </p>
-
-                    {result ? (
-                      <>
-                        <p>
-                          Resultat: {result.home}-{result.away}
-                        </p>
-
-                        <div className="points-earned">
-                          +{points} point
-                        </div>
-
-                        <div className="point-reason">
-                          {reason}
-                        </div>
-                      </>
-                    ) : (
-                      <div className="points-pending">
-                        ⏳ Kamp ikke spillet endnu
-                      </div>
-                    )}
+              return (
+                <div
+                  key={kamp.kampId}
+                  className="match-detail"
+                >
+                  <div className="match-date">
+                    {kamp.dato}
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
 
-      </div>
-    );
+                  <h3>
+                    {kamp.hjemmehold} - {kamp.udehold}
+                  </h3>
+
+                  <p>
+                    Dit tip: {tip.home}-{tip.away}
+                  </p>
+
+                  {result ? (
+                    <>
+                      <p>
+                        Resultat: {result.home}-{result.away}
+                      </p>
+
+                      <div className="points-earned">
+                        +{points} point
+                      </div>
+
+                      <div className="point-reason">
+                        {reason}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="points-pending">
+                      ⏳ Kamp ikke spillet endnu
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
 }
