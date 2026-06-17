@@ -158,7 +158,12 @@ export default function AdminPanel() {
           }
         );
       }
-
+await setDoc(
+  doc(db, "system", "lastUpdate"),
+  {
+    updatedAt: new Date(),
+  }
+);
       alert(
         "🔥 Resultater gemt!"
       );
