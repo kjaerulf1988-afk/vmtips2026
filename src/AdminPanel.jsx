@@ -172,11 +172,12 @@ await setDoc(
 
       console.error(error);
 
-      alert(
-        "Fejl ved gemning"
-      );
-    }
-  };
+     catch (error) {
+
+  console.error(error);
+
+  alert(error.message);
+}
 
   // LOGIN SCREEN
   if (!loggedIn) {
