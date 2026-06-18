@@ -28,7 +28,7 @@ export default function Rules() {
           <h2>⚽ 4 Point</h2>
 
           <p>
-            Korrekt vinder/uafgjort OG korrekt samlet antal mål.
+            Korrekt vinder OG korrekt samlet antal mål.
           </p>
 
           <span>
