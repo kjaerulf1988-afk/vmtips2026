@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import {
   collection,
   onSnapshot,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 
 import { db } from "./firebase";
@@ -19,6 +21,9 @@ export default function Leaderboard() {
 
   const [selectedPlayer, setSelectedPlayer] =
     useState(null);
+
+    const [lastUpdate, setLastUpdate] =
+  useState(null);
 
   // ALLE KAMPE
 
@@ -210,6 +215,25 @@ useEffect(() => {
 
 }, []);
 
+// LAST UPDATE
+
+useEffect(() => {
+
+  const loadLastUpdate = async () => {
+
+    const snap = await getDoc(
+      doc(db, "system", "lastUpdate")
+    );
+
+    if (snap.exists()) {
+      setLastUpdate(snap.data());
+    }
+  };
+
+  loadLastUpdate();
+
+}, []);
+
 // LEADERBOARD
 
 useEffect(() => {
@@ -307,7 +331,25 @@ setLeaderboard(players);
 return () => unsubscribe();
 
     }, [liveResults]);
+const jumpToLastUpdatedMatch =
+  () => {
 
+    if (!lastUpdate?.kampId)
+      return;
+
+    const element =
+      document.getElementById(
+        `kamp-${lastUpdate.kampId}`
+      );
+
+    if (element) {
+
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
   return (
     <div className="leaderboard-page">
 
@@ -373,7 +415,28 @@ return () => unsubscribe();
             <h2>
               {selectedPlayer.navn}
             </h2>
+{lastUpdate && (
 
+  <div
+    className="latest-update-box"
+    onClick={jumpToLastUpdatedMatch}
+  >
+    🕒 Senest opdateret
+
+    <br />
+
+    {lastUpdate.updatedAt?.toDate
+      ? lastUpdate.updatedAt
+          .toDate()
+          .toLocaleString("da-DK")
+      : "Ukendt tidspunkt"}
+
+    <br /><br />
+
+    👉 Tryk for at gå til kampen
+  </div>
+
+)}
             {alleKampe.map((kamp) => {
 
               const tip =
@@ -449,10 +512,11 @@ return () => unsubscribe();
               }
 
               return (
-                <div
-                  key={kamp.kampId}
-                  className="match-detail"
-                >
+               <div
+  id={`kamp-${kamp.kampId}`}
+  key={kamp.kampId}
+  className="match-detail"
+>
                   <div className="match-date">
                     {kamp.dato}
                   </div>

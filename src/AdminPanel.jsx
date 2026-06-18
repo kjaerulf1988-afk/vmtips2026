@@ -121,63 +121,52 @@ export default function AdminPanel() {
   };
 
   // GEM RESULTATER
-  const saveResults = async () => {
+const saveResults = async () => {
 
-    try {
+  try {
 
-      for (const kampId in results) {
+  let lastUpdatedKampId = null;
 
-        const kamp =
-          results[kampId];
+    for (const kampId in results) {
 
-        // SKIP TOMME
-        if (
-          kamp.home === "" ||
-          kamp.away === "" ||
-          kamp.home === undefined ||
-          kamp.away === undefined
-        ) {
-          continue;
-        }
+      const kamp = results[kampId];
 
-        await setDoc(
-          doc(
-            db,
-            "results",
-            kampId
-          ),
-
-          {
-            home: Number(
-              kamp.home
-            ),
-
-            away: Number(
-              kamp.away
-            ),
-          }
-        );
+      if (
+        kamp.home === "" ||
+        kamp.away === "" ||
+        kamp.home === undefined ||
+        kamp.away === undefined
+      ) {
+        continue;
       }
-await setDoc(
+
+      await setDoc(
+        doc(db, "results", kampId),
+        {
+          home: Number(kamp.home),
+          away: Number(kamp.away),
+        }
+      );
+      lastUpdatedKampId = kampId;
+    }
+
+   await setDoc(
   doc(db, "system", "lastUpdate"),
   {
     updatedAt: new Date(),
+    kampId: lastUpdatedKampId,
   }
 );
-      alert(
-        "🔥 Resultater gemt!"
-      );
 
-    } catch (error) {
+    alert("🔥 Resultater gemt!");
 
-      console.error(error);
+  } catch (error) {
 
-     catch (error) {
+    console.error(error);
 
-  console.error(error);
-
-  alert(error.message);
-}
+    alert(error.message);
+  }
+};
 
   // LOGIN SCREEN
   if (!loggedIn) {
